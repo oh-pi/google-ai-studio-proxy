@@ -1,0 +1,4 @@
+{
+  "name": "Gemini Smart Router",
+  "description": "An intelligent API endpoint that classifies user queries as 'trivial' or 'complex' and automatically routes them to the most cost-effective Gemini model for a response. This demonstrates a backend auto-switching mechanism for optimizing AI model usage."
+}
