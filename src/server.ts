@@ -1,7 +1,9 @@
 #!/usr/bin/env node
 
-// FIX: Change express import to default import to use explicit types later.
+// FIX: Import Request and Response types from express to correctly type handler arguments.
+// FIX: Changed to default import and fully qualified types to avoid name collisions with global types.
 import express from 'express';
+import { Request, Response } from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
 // FIX: The import from 'process' was incorrect as `process` is a global object in Node.js.
@@ -28,9 +30,8 @@ const host = '0.0.0.0'; // Listen on all network interfaces to be accessible on 
 app.use(cors());
 app.use(express.json());
 
-// FIX: Use explicit `express.Request` and `express.Response` types to avoid potential conflicts with global types (e.g., from DOM).
-// This resolves all errors related to missing properties on req and res objects.
-app.post('/v1/chat/completions', async (req: express.Request, res: express.Response) => {
+// FIX: Use explicit `Request` and `Response` types for the handler to resolve property access errors on req and res.
+app.post('/v1/chat/completions', async (req: Request, res: Response) => {
   const { messages, stream } = req.body as OpenAIChatCompletionRequest;
 
   if (!messages || messages.length === 0) {
